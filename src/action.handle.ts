@@ -11,7 +11,19 @@ export class ActionHandle {
 
   }
 
-  public test(key: string): boolean {
+  public testFilter(data: any): boolean {
+    if(this.filter === null || this.filter === undefined) return true;
+
+    for(let key in this.filter) {
+      if(data[key] !== this.filter[key]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public testKey(key: string): boolean {
     if(key === null || key === undefined) return false;
 
     if(this.key === key) return true;

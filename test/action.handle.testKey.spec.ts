@@ -1,14 +1,13 @@
 import chai = require("chai");
-import sinon = require("sinon");
 import {ActionHandle} from "../src/action.handle";
 
 const testPattern = (pattern: string, value: string, isTrue: boolean) => {
   const handle = new ActionHandle(pattern, null, null);
-  chai.expect(handle.test(value), "test method").to.be.equal(isTrue, `${pattern} => ${value}`);
+  chai.expect(handle.testKey(value), "test method").to.be.equal(isTrue, `${pattern} => ${value}`);
 };
 
 describe('action.handle', () => {
-  describe('#test', () => {
+  describe('#testKey', () => {
 
     it('should not accept null/undefined', () => {
       testPattern("**", null, false);

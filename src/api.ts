@@ -25,7 +25,10 @@ export class Api {
 
     return Observable.from(this.handles)
       .filter(handle => {
-        return handle.test(metadata.name);
+        return handle.testKey(metadata.name);
+      })
+      .filter(handle => {
+        return handle.testFilter(data);
       })
       .flatMap(handle => {
         return handle.execute(this, data, metadata, scope);
