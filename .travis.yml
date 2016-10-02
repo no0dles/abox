@@ -1,8 +1,11 @@
 language: node_js
 
-script: npm run build
+script:
+  - npm run build
+  - npm test
 
-after_success: npm test
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 node_js:
 - '6'
