@@ -5,6 +5,14 @@ script: npm run build
 after_success: npm test
 
 node_js:
-  - "6"
-  - "5"
-  - "4"
+- '6'
+- '5'
+- '4'
+
+deploy:
+  provider: npm
+  email: pascal.bertschi@hotmail.com
+  api_key:
+    secure: ePbIu5mkl3iRwa+lcZhZdeFIceCfgG4qTXAQwaIUqPQ7joiGNUPdLeF45B87WAjeHHb2Ye/+A3mweojuJUen22zmFiqj+gee5pHLvY0lzCaQ7r2/uFczQjnvCidJmlp725gDrTVdwkCbbj3n3PiwMAoDFZr4gQ3orZTpir736FssGKoIqAojI/n6Xmoy2taNubx5/PfqLHQTVzkHDAHGf4bXOCCOXwg0NYe94Mw5dHNQosjC1j713LFE8HI8q9Fp9cM8W8IeWSkPCDfiEVWkO2FUFGnS7ezK/OF/qAbi0lBz12zgLlmikuXWxlqg8My500almItj2E6W+H+Nh9NzYz6/t7XLGe3wa25+WeDZe78YJZpBSl3S7RBkPs1ufTeUmg5qt3DVyMmdWYSKGZvkvCvlIjVXcPurKomUGdZnwGW2hhR3viCh5dmQc/QhOQX1OUXcsR9ilu1/+6D651O/Hiwas1tsjTcvYmPgxdKRRJDnSC5FrDFPqq2BGmlKfgxP908GGfzX+j+s3Z5I1WbyBtFN8WgiHHFo38KPrVkjOD/m5mhBuGHcIJ1tI3e/o8Z+3EqmKppPUVJXO6WYvIMpBY2pJq/R9O8I9xbqktTwwg9RIgx8fHc52KWbuPSfhb49drsffU/VJwXjrwO4U4nKzGNoa8XkZ6wUalK1wBVmCmQ=
+  on:
+    tags: true
