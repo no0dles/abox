@@ -29,6 +29,9 @@ export class Api {
       })
       .flatMap(handle => {
         return handle.execute(this, data, metadata, scope);
+      })
+      .flatMap(action => {
+        return Observable.merge(this.emit(action, context), Observable.of(action));
       });
   }
 
