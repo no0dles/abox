@@ -2,8 +2,8 @@
   "name": "abox",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "typings": "",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "node_modules/typescript/bin/tsc",
     "test": "node_modules/mocha/bin/mocha dist/test/**/*.spec.js"
