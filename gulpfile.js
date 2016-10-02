@@ -39,19 +39,21 @@ gulp.task("build-coverage", ["pre-coverage"], function () {
     .pipe(istanbul.writeReports({
       reporters: [ "json" ],
       reportOpts: {
-        json: {dir: "dist/coverage/json", file: "coverage.json" }
+        json: {dir: "dist/coverage/json", file: "js_coverage.json" }
       }
     }));
 });
 
 gulp.task("coverage", ["build-coverage"], function () {
-  return gulp.src("dist/coverage/json/coverage.json")
+  return gulp.src("dist/coverage/json/js_coverage.json")
     .pipe(remapIstanbul({
       reports: {
-        "html": "dist/coverage/html"
+        "html": "dist/coverage/html",
+        "json": "dist/coverage/coverage.json"
       }
     }));
 });
+
 gulp.task("open-coverage", ["coverage"], function () {
   return gulp.src('dist/coverage/html/index.html')
     .pipe(open());
