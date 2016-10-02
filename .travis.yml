@@ -2,6 +2,8 @@ language: node_js
 
 script: npm run build
 
+after_success: npm test
+
 node_js:
   - "6"
   - "5"
