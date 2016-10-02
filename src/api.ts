@@ -21,6 +21,10 @@ export class Api {
   public emit<TAction>(data: TAction, context?: IActionContext): Observable<any> {
     let metadata = Reflection.getMetadata<IActionMetadata>(ACTION_METADATA_KEY, data);
 
+    if(!metadata) {
+      return Observable.throw(new Error("Could not emit unknown action"));
+    }
+
     const scope = {};
 
     return Observable.from(this.handles)
