@@ -25,7 +25,10 @@ gulp.task('bump-major', function() { return inc('major'); });
 
 
 gulp.task("pre-coverage", function () {
-  return gulp.src(["dist/**/*.js", "!dist/**/*.spec.js"])
+  return gulp.src([
+    "dist/**/*.js",
+    "!dist/**/*.spec.js",
+    "!dist/**/*.helper.js"])
     .pipe(istanbul())
     .pipe(istanbul.hookRequire());
 });
@@ -61,7 +64,7 @@ gulp.task("open-coverage", ["coverage"], function () {
 
 
 gulp.task("test", function () {
-  return gulp.src("dist/test/**/*.spec.js", {read: false})
+  return gulp.src("dist/**/*.spec.js", {read: false})
     .pipe(mocha({
       reporter: "spec",
       require: ["source-map-support/register"]
