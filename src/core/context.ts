@@ -1,29 +1,34 @@
 import {Observable} from "rxjs/Observable";
 import {ReplaySubject} from "rxjs/ReplaySubject";
-
-export interface IContext {
-  scope: any;
-  result: Observable<any>
-  emit(data: any): any;
-  done(err?: any): void;
-}
+import {MetadataStore} from "../action/metadata.store";
+import {IContextResult} from "./context.result";
 
 export class Context<TScope> {
-  protected subject: ReplaySubject<any>;
+  protected subject: ReplaySubject<IContextResult>;
 
   public readonly scope: TScope;
 
-  constructor(scope: TScope) {
+  constructor(private metadata: MetadataStore, scope: TScope) {
     this.scope = scope;
-    this.subject = new ReplaySubject<any>();
+    this.subject = new ReplaySubject<IContextResult>();
   }
 
-  public get result(): Observable<any> {
+  public get result(): Observable<IContextResult> {
     return this.subject;
   }
 
-  public emit(data: any): Context<TScope> {
-    this.subject.next(data);
+
+  public emit(key: string, data: any): Context<TScope>;
+  public emit(action: any): Context<TScope>;
+  public emit(actionOrKey: any | string, data?: any): Context<TScope> {
+    const resolve = this.metadata.resolve(actionOrKey);
+
+    this.subject.next({
+      key: resolve.key,
+      data: typeof actionOrKey === "string" ? data : actionOrKey,
+      metadata: resolve.metadata
+    });
+
     return this;
   }
 

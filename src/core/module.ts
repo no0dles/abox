@@ -2,15 +2,16 @@ import {Handle} from "./handle";
 import {Observable} from "rxjs";
 import {HandleFactory} from "./handle.factory";
 import {IFilter} from "./filter";
+import {MetadataStore} from "../action/metadata.store";
 
-export class Module<TContext> {
-  protected handles: Handle<any>[];
+export class Module {
+  protected handles: Handle[];
 
-  constructor(private contextFactory: { new(scope: any): TContext }) {
+  constructor(protected metadata: MetadataStore) {
     this.handles = [];
   }
 
-  public use(module: Module<any>): void {
+  public use(module: Module): void {
     this.handles.push(...module.handles);
   }
 
@@ -33,8 +34,8 @@ export class Module<TContext> {
       });
   }
 
-  public on<TData>(filter: IFilter): HandleFactory<TData, TContext, any> {
-    const factory = new HandleFactory(this.contextFactory);
+  public on<TData>(filter: IFilter): HandleFactory<TData, any> {
+    const factory = new HandleFactory(this.metadata);
 
     factory.callback = (handle) => {
       this.handles.push(handle);

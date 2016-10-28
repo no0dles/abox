@@ -3,6 +3,7 @@ import {Context} from "./context";
 import {Handle} from "./handle";
 import {DataFilter} from "./filter";
 import {Observable} from "rxjs";
+import {MetadataStore} from "../action/metadata.store";
 
 const data = { "lorem": "ipsum" };
 const scope = { "foo": "bar" };
@@ -21,12 +22,12 @@ describe('handle', () => {
         .done();
     }];
 
-    const handle = new Handle(filters, callbacks);
+    const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
       .emit(data, scope)
       .subscribe(res => {
-        expect(res).to.be.equal(result);
+        expect(res.data).to.be.equal(result);
         done();
       }, err => {
         done(err);
@@ -47,12 +48,12 @@ describe('handle', () => {
         .done();
     }];
 
-    const handle = new Handle(filters, callbacks);
+    const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
       .emit(data, scope)
       .subscribe(res => {
-        expect(res).to.be.equal(result);
+        expect(res.data).to.be.equal(result);
         done();
       }, err => {
         done(err);
@@ -74,7 +75,7 @@ describe('handle', () => {
         .done();
     }];
 
-    const handle = new Handle(filters, callbacks);
+    const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
       .emit(data, scope)
@@ -101,7 +102,7 @@ describe('handle', () => {
         .done();
     }];
 
-    const handle = new Handle(filters, callbacks);
+    const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
       .emit(data, scope)
@@ -133,7 +134,7 @@ describe('handle', () => {
         .done();
     }];
 
-    const handle = new Handle(filters, callbacks);
+    const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
       .emit(data, scope)

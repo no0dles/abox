@@ -1,13 +1,14 @@
 import {IFilter} from "./filter";
 import {Observable} from "rxjs";
 import {ICallback} from "./callback";
-import {IContext} from "./context";
+import {Context} from "./context";
+import {MetadataStore} from "../action/metadata.store";
 
-export class Handle<TContext extends IContext> {
+export class Handle {
   constructor(
-    protected contextFactory: { new(scope: any): TContext },
+    protected metadata: MetadataStore,
     protected filters: IFilter[],
-    protected callbacks: ICallback<any, TContext, any>[]) { }
+    protected callbacks: ICallback<any, any>[]) { }
 
   private filter(data: any, scope: any): Observable<boolean> {
     return Observable
@@ -37,7 +38,7 @@ export class Handle<TContext extends IContext> {
         return Observable
           .from(this.callbacks)
           .flatMap(callback => {
-            const context = new this.contextFactory(scope);
+            const context = new Context(this.metadata, scope);
             callback(data, context);
             return context.result;
           });

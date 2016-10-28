@@ -1,21 +1,22 @@
 import {expect} from "chai";
 import {Context} from "./context";
+import {MetadataStore} from "../action/metadata.store";
 
 describe('context', () => {
 
   it('should return emitted action in result without done', (done) => {
-    const context = new Context({});
+    const context = new Context(new MetadataStore(), {});
     const action = { key: "lorem", data: "ipsum" };
 
     context.emit(action);
     context.result.subscribe(result => {
-      expect(result).to.be.equal(action);
+      expect(result.data).to.be.equal(action);
       done();
     }, err => { done(err); });
   });
 
   it('should complete result on done', (done) => {
-    const context = new Context({});
+    const context = new Context(new MetadataStore(), {});
 
     context.done();
     context.result.subscribe(
@@ -26,7 +27,7 @@ describe('context', () => {
   });
 
   it('should throw errors', (done) => {
-    const context = new Context({});
+    const context = new Context(new MetadataStore(), {});
     const error = new Error("rand");
 
     context.done(error);
