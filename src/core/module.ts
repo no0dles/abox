@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {HandleFactory} from "./handle.factory";
 import {IFilter} from "./filter";
 import {MetadataStore} from "../action/metadata.store";
+import {IAction} from "../action/action";
 
 export class Module {
   protected handles: Handle[];
@@ -15,26 +16,26 @@ export class Module {
     this.handles.push(...module.handles);
   }
 
-  public emit(data: any, scope?: any): Observable<any> {
+  public emit(action: IAction<any>, scope?: any): Observable<any> {
     if(!scope) {
       scope = {};
     }
 
-    if(!data) {
-      return Observable.throw(new Error("data can not be null or undefined"));
+    if(!action) {
+      return Observable.throw(new Error("action can not be null or undefined"));
     }
 
     return Observable
       .from(this.handles)
       .flatMap(handle => {
-        return handle.emit(data, scope);
+        return handle.emit(action, scope);
       })
       .flatMap(data => {
         return Observable.merge(this.emit(data, scope), Observable.of(data));
       });
   }
 
-  public on<TData>(filter: IFilter): HandleFactory<TData, any> {
+  public on<TData>(filter: IFilter): HandleFactory<TData, any, any> {
     const factory = new HandleFactory(this.metadata);
 
     factory.callback = (handle) => {

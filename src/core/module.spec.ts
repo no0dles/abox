@@ -8,6 +8,10 @@ describe('api', () => {
     it('should copy handles', (done) => {
       const sourceModule = new Module(new MetadataStore());
       const destModule = new Module(new MetadataStore());
+      const action = {
+        data: {},
+        metadata: {"key": "test"}
+      };
 
       sourceModule.on(DataFilter.has("key")).do(() => {
         done();
@@ -15,7 +19,7 @@ describe('api', () => {
 
       destModule.use(sourceModule);
 
-      destModule.emit({"key": "test"}).subscribe(
+      destModule.emit(action).subscribe(
         () => {},
         err => done(err),
         () => {}
@@ -26,7 +30,10 @@ describe('api', () => {
 
   describe('#emit', () => {
     it('should return response on emit', (done) => {
-      const data = { "key": "echo", "message": "lorem" };
+      const action = {
+        data: { "message": "lorem" },
+        metadata: { "key": "echo"}
+      };
       const response = { "key": "response", "message": "lorem" };
       const module = new Module(new MetadataStore());
 
@@ -34,7 +41,7 @@ describe('api', () => {
         context.emit(response).done();
       });
 
-      module.emit(data).subscribe(result => {
+      module.emit(action).subscribe(result => {
         expect(result.data).to.be.equal(response);
         done();
       }, err => {

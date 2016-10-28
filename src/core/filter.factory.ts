@@ -22,8 +22,8 @@ export class FilterFactory {
   }
 
   public custom(key: string, validate: (value: any) => boolean | Observable<boolean>): IFilter {
-    return (data, scope) => {
-      const value = this.mapper.map(data, scope) || {};
+    return (data, scope, metadata) => {
+      const value = this.mapper.map(data, scope, metadata) || {};
       return validate(value[key]);
     }
   }

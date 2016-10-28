@@ -8,7 +8,8 @@ describe('filter.mapper', () => {
       const mapper = new ScopeMapper();
       const data = { "lorem": "ipsum" };
       const scope = { "hello": "world" };
-      const result = mapper.map(data, scope);
+      const metadata = { "key": "hello" };
+      const result = mapper.map(data, scope, metadata);
 
       expect(result).to.be.equal(scope);
     });
@@ -19,7 +20,8 @@ describe('filter.mapper', () => {
       const mapper = new DataMapper();
       const data = { "lorem": "ipsum" };
       const scope = { "hello": "world" };
-      const result = mapper.map(data, scope);
+      const metadata = { "key": "hello" };
+      const result = mapper.map(data, scope, metadata);
 
       expect(result).to.be.equal(data);
     });

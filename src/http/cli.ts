@@ -25,9 +25,9 @@ server.post("/emit", (req: express.Request, res: express.Response) => {
       res.json({
         actions: actions.map(action => {
           return {
-            key: ReflectionUtil.getMetadata(action, "key"),
-            data: action
-          }
+            key: action.metadata.key,
+            data: action.data
+          };
         })
       });
     });

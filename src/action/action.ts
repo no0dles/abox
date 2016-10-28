@@ -1,5 +1,4 @@
-export interface IAction {
-  key: string;
+export interface IAction<TMetadata> {
   data: any;
-  metadata: any;
+  metadata: TMetadata;
 }

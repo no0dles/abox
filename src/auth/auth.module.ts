@@ -1,7 +1,7 @@
 import {ActionModule} from "../action/action.module";
-import {MetadataFilter} from "../action/filter";
 import {IAuthScope} from "./auth.scope";
 import {Context} from "../core/context";
+import {MetadataFilter} from "../core/filter";
 
 export var module = new ActionModule();
 

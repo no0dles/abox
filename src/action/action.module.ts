@@ -1,10 +1,10 @@
 import {Observable} from "rxjs/Observable";
 import {KeyFilter} from "./key.filter";
-import {IActionScope} from "./action.scope";
 import {Module} from "../core/module";
 import {HandleFactory} from "../core/handle.factory";
 import {Type} from "./type";
 import {MetadataStore} from "./metadata.store";
+import {IAction} from "./action";
 
 export class ActionModule {
   protected module: Module;
@@ -23,34 +23,31 @@ export class ActionModule {
   public emit(key: string, data: any, scope?: any): Observable<any>;
   public emit(action: any, scope?: any): Observable<any>;
   public emit(actionOrKey: any | string, dataOrScope?: any, scope?: any): Observable<any> {
-    let key: string, data: any;
+    let action: IAction<any> = { data: {}, metadata: {} };
 
     if(typeof actionOrKey === "string") {
-      data = dataOrScope;
+      action.data = dataOrScope;
     } else {
       scope = dataOrScope;
-      data = actionOrKey;
+      action.data = actionOrKey;
     }
+
+    action.metadata = this.metadata.resolve(actionOrKey);
 
     if(!scope) {
       scope = {};
     }
 
-    let resolve = this.metadata.resolve(actionOrKey);
-
-    scope["key"] = resolve.key;
-    scope["metadata"] = resolve.metadata;
-
-    return this.module.emit(data, scope);
+    return this.module.emit(action, scope);
   }
 
-  public on<TAction>(actionOrKey: Type<TAction> | string): HandleFactory<TAction, IActionScope<any>> {
+  public on<TAction, TScope, TMetadata>(actionOrKey: Type<TAction> | string): HandleFactory<TAction, TScope, TMetadata> {
     let key;
 
     if(typeof actionOrKey === "string") {
       key = actionOrKey;
     } else {
-      key = this.metadata.store(actionOrKey);
+      key = this.metadata.store(actionOrKey.prototype);
     }
 
     return this.module.on(KeyFilter.create(key));

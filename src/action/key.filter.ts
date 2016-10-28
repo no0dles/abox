@@ -1,15 +1,16 @@
-import {IFilter, ScopeFilter} from "../core/filter";
+import {IFilter, MetadataFilter} from "../core/filter";
 
 export class KeyFilter {
   public static create(key: string): IFilter {
-    return ScopeFilter.custom("key", (data) => {
+    const parts = key.split(".");
+
+    return MetadataFilter.custom("key", (data) => {
       if(data === null || data === undefined) return false;
 
-      if(key === key) return true;
+      if(data === key) return true;
       if(key === "**") return true;
 
-      const parts = key.split(".");
-      const matches = key.split(".");
+      const matches = data.split(".");
 
       let index = 0;
       let matchIndex = 0;

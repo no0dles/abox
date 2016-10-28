@@ -5,7 +5,7 @@ import {DataFilter} from "./filter";
 import {Observable} from "rxjs";
 import {MetadataStore} from "../action/metadata.store";
 
-const data = { "lorem": "ipsum" };
+const action = { data: { "lorem": "ipsum" }, metadata: {} };
 const scope = { "foo": "bar" };
 const result = { "hello": "world" };
 
@@ -25,7 +25,7 @@ describe('handle', () => {
     const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
-      .emit(data, scope)
+      .emit(action, scope)
       .subscribe(res => {
         expect(res.data).to.be.equal(result);
         done();
@@ -51,7 +51,7 @@ describe('handle', () => {
     const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
-      .emit(data, scope)
+      .emit(action, scope)
       .subscribe(res => {
         expect(res.data).to.be.equal(result);
         done();
@@ -78,7 +78,7 @@ describe('handle', () => {
     const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
-      .emit(data, scope)
+      .emit(action, scope)
       .subscribe(res => {
         done(new Error("should not go here"));
       }, err => {
@@ -105,7 +105,7 @@ describe('handle', () => {
     const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
-      .emit(data, scope)
+      .emit(action, scope)
       .subscribe(res => {
         done(new Error("should not go here"));
       }, err => {
@@ -137,7 +137,7 @@ describe('handle', () => {
     const handle = new Handle(new MetadataStore(), filters, callbacks);
 
     handle
-      .emit(data, scope)
+      .emit(action, scope)
       .subscribe(res => {
         done(new Error("should not go here"));
       }, err => {

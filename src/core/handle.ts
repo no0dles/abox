@@ -3,18 +3,19 @@ import {Observable} from "rxjs";
 import {ICallback} from "./callback";
 import {Context} from "./context";
 import {MetadataStore} from "../action/metadata.store";
+import {IAction} from "../action/action";
 
 export class Handle {
   constructor(
     protected metadata: MetadataStore,
     protected filters: IFilter[],
-    protected callbacks: ICallback<any, any>[]) { }
+    protected callbacks: ICallback<any, any, any>[]) { }
 
-  private filter(data: any, scope: any): Observable<boolean> {
+  private filter(action: IAction<any>, scope: any): Observable<boolean> {
     return Observable
       .from(this.filters)
       .flatMap(filter => {
-        const res = filter(data, scope);
+        const res = filter(action.data, scope, action.metadata);
         if(res instanceof Observable) {
           return res;
         } else {
@@ -28,8 +29,8 @@ export class Handle {
       });
   }
 
-  public emit(data: any, scope: any): Observable<any> {
-    return this.filter(data, scope)
+  public emit(action: IAction<any>, scope: any): Observable<any> {
+    return this.filter(action, scope)
       .flatMap(result => {
         if(!result) {
           return Observable.empty();
@@ -39,7 +40,7 @@ export class Handle {
           .from(this.callbacks)
           .flatMap(callback => {
             const context = new Context(this.metadata, scope);
-            callback(data, context);
+            callback(action.data, context, action.metadata);
             return context.result;
           });
       });

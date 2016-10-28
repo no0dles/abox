@@ -1,10 +1,5 @@
 import {ReflectionUtil} from "./reflection.util";
 
-export interface IMetadataResolve {
-  key: string;
-  metadata: any;
-}
-
 export class MetadataStore {
   protected metadata: { [key: string]: any };
 
@@ -18,7 +13,7 @@ export class MetadataStore {
     }
   }
 
-  public resolve(actionOrKey: any | string): IMetadataResolve {
+  public resolve<TMetadata>(actionOrKey: any | string): TMetadata {
     let key;
 
     if(typeof actionOrKey === "string") {
@@ -31,14 +26,14 @@ export class MetadataStore {
       }
     }
 
-    return {
-      key: key,
-      metadata: this.metadata[key] || {}
-    };
+    return this.metadata[key] || {} as TMetadata;
   }
 
   store(action: any): string {
     const key = ReflectionUtil.getMetadata<string>(action, "key");
+
+    if(!key) throw new Error("Could not store object");
+
     const metadata = ReflectionUtil.getMetadata(action);
 
     this.metadata[key] = metadata;
