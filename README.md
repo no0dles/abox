@@ -11,18 +11,18 @@ npm install abox --save
 ```
 
 ### Code Example
-action.ts
+messages.ts
 ```typescript
-import {Action} from "abox";
+import {Key} from "abox";
 
-@Action({ name: "ping" })
+@Key("ping")
 export class Ping {
   constructor(public message: string) {
 
   }
 }
 
-@Action({ name: "pong" })
+@Key("pong")
 export class Pong {
   constructor(public message: string) {
 
@@ -33,20 +33,22 @@ export class Pong {
 app.ts
 ```typescript
 import {Api} from "abox";
-import {Ping, Pong} from "./actions";
+import {Ping, Pong} from "./messages";
 
 const api = new Api();
 
 api
   .on(Ping)
-  .handle((context, data) => {
-    context.done(new Pong(data.message));
+  .do((ping, context) => {
+    context
+      .emit(new Pong(ping.message))
+      .done();
   });
 
 api
   .on(Pong)
-  .handle((context, data) => {
-    console.log("Pong:", data.message);
+  .do((pong, context) => {
+    console.log("Pong:", pong.message);
     context.done();
   });
 

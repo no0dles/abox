@@ -2,8 +2,9 @@ import {Module} from "./module";
 import {expect} from "chai";
 import {MetadataStore} from "../api/metadata.store";
 import {DataFilter} from "../filters/data.filter";
+import {MetadataFilter} from "../filters/metadata.filter";
 
-describe('api', () => {
+describe('module', () => {
   describe('#use', () => {
     it('should copy handles', (done) => {
       const sourceModule = new Module(new MetadataStore());
@@ -13,7 +14,7 @@ describe('api', () => {
         metadata: {"key": "test"}
       };
 
-      sourceModule.on(DataFilter.has("key")).do(() => {
+      sourceModule.on(MetadataFilter.has("key")).do(() => {
         done();
       });
 
@@ -37,7 +38,7 @@ describe('api', () => {
       const response = { "key": "response", "message": "lorem" };
       const module = new Module(new MetadataStore());
 
-      module.on(DataFilter.value("key", "echo")).do((data, context) => {
+      module.on(MetadataFilter.value("key", "echo")).do((data, context) => {
         context.emit(response).done();
       });
 
@@ -59,9 +60,5 @@ describe('api', () => {
         }
       );
     });
-  });
-
-  describe('#on', () => {
-
   });
 });

@@ -26,9 +26,9 @@ gulp.task('bump-major', function() { return inc('major'); });
 
 gulp.task("pre-coverage", function () {
   return gulp.src([
-    "dist/**/*.js",
-    "!dist/**/*.spec.js",
-    "!dist/**/*.helper.js"])
+    "dist/src/**/*.js",
+    "!dist/src/**/*.spec.js",
+    "!dist/src/**/*.helper.js"])
     .pipe(istanbul())
     .pipe(istanbul.hookRequire());
 });
