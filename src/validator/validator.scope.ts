@@ -1,5 +1,5 @@
-import {IValidatorFunction} from "./validator.function";
+import {IValidator} from "./validator.function";
 
 export interface IValidatorMetadata {
-  validators: { [propertyKey: string]: IValidatorFunction<any>[] };
+  validators: { [propertyKey: string]: IValidator<any>[] };
 }

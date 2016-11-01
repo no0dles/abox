@@ -1,4 +1,4 @@
-import {ReflectionUtil} from "./reflection.util";
+import {ReflectionUtil} from "../util/reflection.util";
 
 export class MetadataStore {
   protected metadata: { [key: string]: any };

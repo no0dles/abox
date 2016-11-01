@@ -1,11 +1,6 @@
-import {DecoratorFactory} from "../action/decorator.factory";
+import {DecoratorFactory} from "../core/decorator/decorator.factory";
+import {IAuthorization} from "./authorization";
 
-export interface IAuth {
-  users?: string[];
-  roles?: string[];
-  claims?: string[];
-}
-
-export function Auth(auth: IAuth) {
+export function Auth(auth: IAuthorization) {
   return DecoratorFactory.action("auth", auth);
 }

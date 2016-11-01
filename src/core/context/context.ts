@@ -1,7 +1,14 @@
 import {Observable} from "rxjs/Observable";
 import {ReplaySubject} from "rxjs/ReplaySubject";
-import {MetadataStore} from "../action/metadata.store";
-import {IAction} from "../action/action";
+import {MetadataStore} from "../api/metadata.store";
+import {IAction} from "./action";
+
+export interface IContext<TScope> {
+  scope: TScope;
+  result: Observable<IAction<any>>;
+  emit(action: any): IContext<TScope>;
+  done(err?: any): void;
+}
 
 export class Context<TScope> {
   protected subject: ReplaySubject<IAction<any>>;

@@ -1,9 +1,8 @@
 import * as express from "express";
 import * as path from "path";
 import * as bodyParser from 'body-parser';
-import {ActionModule} from "../action/action.module";
+import {Api} from "../core/api/api";
 import {HttpRequest} from "./actions";
-import {ReflectionUtil} from "../action/reflection.util";
 
 const apiPath = process.argv[2];
 
@@ -11,7 +10,7 @@ if(!apiPath) {
   throw new Error("Pass path to api file");
 }
 
-const api = require(path.join(process.cwd(), apiPath)) as ActionModule;
+const api = require(path.join(process.cwd(), apiPath)) as Api;
 
 const server = express();
 

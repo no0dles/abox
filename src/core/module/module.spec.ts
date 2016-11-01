@@ -1,7 +1,7 @@
 import {Module} from "./module";
-import {DataFilter} from "./filter";
 import {expect} from "chai";
-import {MetadataStore} from "../action/metadata.store";
+import {MetadataStore} from "../api/metadata.store";
+import {DataFilter} from "../filters/data.filter";
 
 describe('api', () => {
   describe('#use', () => {

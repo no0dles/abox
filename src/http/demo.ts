@@ -1,24 +1,30 @@
-import {ActionModule} from "../action/action.module";
+import {Api} from "../core/api/api";
 import {HttpRequest} from "./actions";
 import {Required} from "../validator/decorators/required";
-import {Key} from "../action/key.decorator";
+import {Key} from "../core/decorator/key.decorator";
+import {Context} from "../core/context/context";
 
-const api = new ActionModule();
+const api = new Api();
 
 
 @Key("demo.echo")
-class DemoEcho {
+class Echo {
   @Required()
-  message: string;
+  public message: string;
 }
 
-api.on(DemoEcho).do((data, context) => {
-  console.log(data);
-  context.emit("demo.echo.response", { message: data.message }).done();
+@Key("demo.echo.response")
+class DemoEchoResponse {
+  constructor(@Required() public message: string) {
+
+  }
+}
+
+api.on(Echo).do((data, context) => {
+  context.emit(new DemoEchoResponse(data.message)).done();
 });
 
-api.on(HttpRequest).do((data, context) => {
-  console.log(data.body);
+api.on(HttpRequest).do((data, context: Context<any>) => {
   for(let action of data.body.actions) {
     context.emit(action.key, action.data);
   }

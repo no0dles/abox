@@ -1,4 +1,4 @@
-import {Key} from "../action/key.decorator";
+import {Key} from "../core/decorator/key.decorator";
 import {Required} from "../validator/decorators/required";
 
 @Key("abox.http.request")

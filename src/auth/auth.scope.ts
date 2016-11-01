@@ -1,5 +1,5 @@
-import {IAuth} from "./auth.decorator";
+import {IAuthorization} from "./authorization";
 
 export interface IAuthScope {
-  auth: IAuth;
+  authorization: IAuthorization;
 }

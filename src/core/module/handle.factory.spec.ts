@@ -1,6 +1,6 @@
 import {HandleFactory} from "./handle.factory";
 import {expect} from "chai";
-import {MetadataStore} from "../action/metadata.store";
+import {MetadataStore} from "../api/metadata.store";
 
 describe('handle.factory', () => {
   it('should fire callback when do() is called', (done) => {

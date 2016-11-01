@@ -1,9 +1,9 @@
 import {Handle} from "./handle";
 import {Observable} from "rxjs";
 import {HandleFactory} from "./handle.factory";
-import {IFilter} from "./filter";
-import {MetadataStore} from "../action/metadata.store";
-import {IAction} from "../action/action";
+import {IFilter} from "../filter/filter";
+import {MetadataStore} from "../api/metadata.store";
+import {IAction} from "../context/action";
 
 export class Module {
   protected handles: Handle[];

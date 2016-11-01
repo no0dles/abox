@@ -1,4 +1,4 @@
-import {ReflectionUtil} from "./reflection.util";
+import {ReflectionUtil} from "../util/reflection.util";
 
 export class DecoratorFactory {
   /*public static property(key: string, value: any): Function {

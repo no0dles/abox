@@ -1,9 +1,9 @@
 import {expect} from "chai";
-import {Context} from "./context";
+import {Context} from "../context/context";
 import {Handle} from "./handle";
-import {DataFilter} from "./filter";
 import {Observable} from "rxjs";
-import {MetadataStore} from "../action/metadata.store";
+import {MetadataStore} from "../api/metadata.store";
+import {DataFilter} from "../filters/data.filter";
 
 const action = { data: { "lorem": "ipsum" }, metadata: {} };
 const scope = { "foo": "bar" };

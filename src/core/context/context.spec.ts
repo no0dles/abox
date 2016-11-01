@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {Context} from "./context";
-import {MetadataStore} from "../action/metadata.store";
+import {MetadataStore} from "../api/metadata.store";
 
 describe('context', () => {
 

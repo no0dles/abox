@@ -1,4 +1,5 @@
-import {IFilter, MetadataFilter} from "../core/filter";
+import {MetadataFilter} from "./metadata.filter";
+import {IFilter} from "../filter/filter";
 
 export class KeyFilter {
   public static create(key: string): IFilter {

@@ -1,7 +1,7 @@
-import {ICallback} from "./callback";
-import {IFilter} from "./filter";
+import {ICallback} from "../context/callback";
+import {IFilter} from "../filter/filter";
 import {Handle} from "./handle";
-import {MetadataStore} from "../action/metadata.store";
+import {MetadataStore} from "../api/metadata.store";
 
 export class HandleFactory<TData, TScope, TMetadata> {
   private filters: IFilter[];

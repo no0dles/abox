@@ -1,9 +1,9 @@
-import {IFilter} from "./filter";
+import {IFilter} from "../filter/filter";
 import {Observable} from "rxjs";
-import {ICallback} from "./callback";
-import {Context} from "./context";
-import {MetadataStore} from "../action/metadata.store";
-import {IAction} from "../action/action";
+import {ICallback} from "../context/callback";
+import {Context} from "../context/context";
+import {MetadataStore} from "../api/metadata.store";
+import {IAction} from "../context/action";
 
 export class Handle {
   constructor(
