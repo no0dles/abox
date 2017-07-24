@@ -1,4 +1,6 @@
 # abox - Api Toolbox
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/no0dles/abox.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/no0dles/abox.svg?branch=master)](https://travis-ci.org/no0dles/abox)
 [![npm version](https://badge.fury.io/js/abox.svg)](https://badge.fury.io/js/abox)
 [![codecov](https://codecov.io/gh/no0dles/abox/branch/master/graph/badge.svg)](https://codecov.io/gh/no0dles/abox)
